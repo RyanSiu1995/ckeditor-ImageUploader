@@ -1,4 +1,4 @@
-CKEDITOR.plugins.add( 'imageUploader', {
+CKEDITOR.plugins.add( 'imageCustomUploader', {
     init: function( editor ) {
         var fileDialog = $('<input type="file">');
         
