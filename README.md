@@ -57,12 +57,12 @@ router.post('TO/YOUR/PATH', upload.any(), function(req, res) {
 
 Support
 ----------------------------------------------------
-If you have any questions, please contact [me][ryansiu@uw.edu].
+If you have any questions, please contact me.
 
 License
 ----------------------------------------------------
 This plugin is licensed under the MIT license: 
-[http://en.wikipedia.org/wiki/MIT_License][]
+http://en.wikipedia.org/wiki/MIT_License
 
 Copyright © 2017 by Ryan Siu
 
