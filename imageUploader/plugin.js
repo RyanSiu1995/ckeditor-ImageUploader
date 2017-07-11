@@ -5,9 +5,16 @@ CKEDITOR.plugins.add( 'imageCustomUploader', {
         fileDialog.on('change', function (e) {
             var fileTools = CKEDITOR.fileTools,
                 uploadUrl = fileTools.getUploadUrl( editor.config, 'image' ),
-                loader = editor.uploadRepository.create(e.target.files[0]),
+                file = e.target.files[0],
+                loader = editor.uploadRepository.create(file),
                 reader = new FileReader(),
-				img;
+                img;
+            
+            // verify
+            if (!/image/i.test(file.type)) {
+                editor.showNotification( 'Please select the correct picture format.', 'warning' );
+                return false
+            }
             
             loader.upload(uploadUrl);
 
