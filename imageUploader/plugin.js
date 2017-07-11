@@ -3,27 +3,52 @@ CKEDITOR.plugins.add( 'imageCustomUploader', {
         var fileDialog = $('<input type="file">');
         
         fileDialog.on('change', function (e) {
-            var fileTools = CKEDITOR.fileTools, uploadUrl = fileTools.getUploadUrl( editor.config, 'image' );
-            var loader = editor.uploadRepository.create(e.target.files[0]);
+            var fileTools = CKEDITOR.fileTools,
+                uploadUrl = fileTools.getUploadUrl( editor.config, 'image' ),
+                loader = editor.uploadRepository.create(e.target.files[0]),
+                reader = new FileReader(),
+				img;
             
             loader.upload(uploadUrl);
+
+            // preview image
+            reader.readAsDataURL(e.target.files[0]);
+
+            reader.onload = function (e) {
+                img = editor.document.createElement('img');
+                img.setAttribute('src', e.target.result);
+                img.setStyle('opacity', 0.3);
+                editor.insertElement(img);
+            }
+
             loader.on('uploaded', function(evt) {
-                var ele = editor.document.createElement('img');
-                ele.setAttribute('src', evt.sender.url);
-                editor.insertElement(ele);
-                fileDialog[0].value = "";
-            })
+                editor.widgets.initOn(img, 'image', {
+                    src: evt.sender.url
+                });
+
+                img.setStyle('opacity', 1);
+            });
+
+            loader.on('error', function() {
+                img.remove()
+            });
+
             fileTools.bindNotifications(editor, loader);
-        })
+            
+            // empty input
+            fileDialog[0].value = "";
+        });
+
         editor.ui.addButton( 'Image', {
             label: 'Insert Image',
             command: 'openDialog',
             toolbar: 'insert'
         });
+
         editor.addCommand('openDialog', {
             exec: function(editor) {
                 fileDialog.click();
             }
-        })
+        });
     }
 });
