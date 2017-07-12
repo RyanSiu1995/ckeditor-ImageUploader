@@ -8,11 +8,17 @@ CKEDITOR.plugins.add( 'imageCustomUploader', {
                 file = e.target.files[0],
                 loader = editor.uploadRepository.create(file),
                 reader = new FileReader(),
+                notification,
                 img;
             
             // verify
             if (!/image/i.test(file.type)) {
-                editor.showNotification( 'Please select the correct picture format.', 'warning' );
+                notification = editor.showNotification( '请选择正确的图片格式。', 'warning' );
+
+                setTimeout(function() {
+                    notification.hide()
+                }, 2000);
+
                 return false
             }
             
