@@ -55,6 +55,15 @@ router.post('TO/YOUR/PATH', upload.any(), function(req, res) {
 })
 ```
 
+Issue Reported
+----------------------------------------------------
+### Uncaught TypeError: fileTools.bindNotifications is not a function (line 16)
+This error is due to the absence in fileTools plugin.
+It can be solved by importing the [fileTools](https://ckeditor.com/addon/filetools) back.
+Please be reminded all the request and response to the server
+should follow the structure as same as the typical CKEDITOR 
+image upload process.
+
 Support
 ----------------------------------------------------
 If you have any questions, please contact me.
