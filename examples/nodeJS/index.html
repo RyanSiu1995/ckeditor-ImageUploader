@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script src="https://cdn.ckeditor.com/4.7.3/standard/ckeditor.js"></script>
+</head>
+<body>
+	<textarea id="editor1"></textarea>
+	<script type="text/javascript">
+		// All the required plugins
+		CKEDITOR.plugins.addExternal( 'widgetselection', '/plugin/widgetselection/', 'plugin.js' );
+		CKEDITOR.plugins.addExternal( 'lineutils', '/plugin/lineutils/', 'plugin.js' );
+		CKEDITOR.plugins.addExternal( 'widget', '/plugin/widget/', 'plugin.js' );
+		CKEDITOR.plugins.addExternal( 'notificationaggregator', '/plugin/notificationaggregator/', 'plugin.js' );
+		CKEDITOR.plugins.addExternal( 'uploadwidget', '/plugin/uploadwidget/', 'plugin.js' );
+		CKEDITOR.plugins.addExternal( 'filetools', '/plugin/filetools/', 'plugin.js' );
+		// This plugin
+		CKEDITOR.plugins.addExternal( 'imageUploader', '/plugin/imageUploader/', 'plugin.js' );
+		// Activate the plugin
+		editor = CKEDITOR.replace('editor1', {
+			extraPlugins: "uploadwidget,filetools,imageUploader",
+			uploadUrl: "imageURL"
+		})
+
+	</script>
+</body>
+</html>
