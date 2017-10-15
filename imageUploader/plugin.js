@@ -1,4 +1,10 @@
 CKEDITOR.plugins.add( 'imageCustomUploader', {
+    requires: 'filetools',
+    beforeInit: function( editor ) {
+        if (!!!CKEDITOR.fileTools) {
+            console.log("Please add the plugins fileTools and its requirements.")
+        }
+    },
     init: function( editor ) {
         var fileDialog = $('<input type="file">');
         
@@ -13,7 +19,7 @@ CKEDITOR.plugins.add( 'imageCustomUploader', {
             
             // verify
             if (!/image/i.test(file.type)) {
-                notification = editor.showNotification( '请选择正确的图片格式。', 'warning' );
+                notification = editor.showNotification( 'Please check the correct format.', 'warning' );
 
                 setTimeout(function() {
                     notification.hide()
