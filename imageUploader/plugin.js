@@ -44,7 +44,7 @@ CKEDITOR.plugins.add( 'imageCustomUploader', {
                 editor.widgets.initOn(img, 'image', {
                     src: evt.sender.url
                 });
-
+                img.setAttribute('src', evt.sender.url);
                 img.setStyle('opacity', 1);
             });
 
