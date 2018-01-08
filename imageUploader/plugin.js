@@ -1,4 +1,4 @@
-CKEDITOR.plugins.add( 'imageCustomUploader', {
+CKEDITOR.plugins.add( 'imageUploader', {
     requires: 'filetools',
     beforeInit: function( editor ) {
         if (!!!CKEDITOR.fileTools) {
