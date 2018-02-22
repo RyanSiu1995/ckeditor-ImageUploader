@@ -6,8 +6,11 @@ CKEDITOR.plugins.add( 'imageUploader', {
         }
     },
     init: function( editor ) {
-        var fileDialog = $('<input type="file">');
-        
+        // add file type filter
+        var fileDialog = $('<input type="file" accept="image/*" />'),
+            allowed = 'img[alt,!src]{border-style,border-width,float,height,margin,margin-bottom,margin-left,margin-right,margin-top,width}',
+            required = 'img[alt,src]';
+                
         fileDialog.on('change', function (e) {
             var fileTools = CKEDITOR.fileTools,
                 uploadUrl = fileTools.getUploadUrl( editor.config, 'image' ),
@@ -49,7 +52,7 @@ CKEDITOR.plugins.add( 'imageUploader', {
             });
 
             loader.on('error', function() {
-                img.remove()
+                img.$ && img.$.remove();
             });
 
             fileTools.bindNotifications(editor, loader);
@@ -58,13 +61,21 @@ CKEDITOR.plugins.add( 'imageUploader', {
             fileDialog[0].value = "";
         });
 
-        editor.ui.addButton( 'Image', {
+        // Add toolbar button for this plugin.
+        editor.ui.addButton && editor.ui.addButton( 'Image', {
             label: 'Insert Image',
             command: 'openDialog',
             toolbar: 'insert'
-        });
+        } );
 
+        // Add ACF rule to allow img tag
         editor.addCommand('openDialog', {
+            allowedContent: allowed,
+            requiredContent: required,
+            contentTransformations: [
+                [ 'img{width}: sizeToStyle', 'img[width]: sizeToAttribute' ],
+                [ 'img{float}: alignmentToStyle', 'img[align]: alignmentToAttribute' ]
+            ],
             exec: function(editor) {
                 fileDialog.click();
             }
