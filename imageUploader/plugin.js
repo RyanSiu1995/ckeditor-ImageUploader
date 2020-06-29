@@ -7,10 +7,12 @@ CKEDITOR.plugins.add( 'imageUploader', {
     },
     init: function( editor ) {
         // add file type filter
-        var fileDialog = $('<input type="file" accept="image/*" />'),
+        var fileDialog = document.createElement("input"),
             allowed = 'img[alt,!src]{border-style,border-width,float,height,margin,margin-bottom,margin-left,margin-right,margin-top,width}',
             required = 'img[alt,src]';
-                
+        fileDialog.type = 'file'
+        fileDialog.accept = 'image/*'
+
         fileDialog.on('change', function (e) {
             var fileTools = CKEDITOR.fileTools,
                 uploadUrl = fileTools.getUploadUrl( editor.config, 'image' ),
@@ -19,7 +21,7 @@ CKEDITOR.plugins.add( 'imageUploader', {
                 reader = new FileReader(),
                 notification,
                 img;
-            
+
             // verify
             if (!/image/i.test(file.type)) {
                 notification = editor.showNotification( 'Please check the correct format.', 'warning' );
@@ -30,7 +32,7 @@ CKEDITOR.plugins.add( 'imageUploader', {
 
                 return false
             }
-            
+
             loader.upload(uploadUrl);
 
             // preview image
@@ -56,7 +58,7 @@ CKEDITOR.plugins.add( 'imageUploader', {
             });
 
             fileTools.bindNotifications(editor, loader);
-            
+
             // empty input
             fileDialog[0].value = "";
         });
