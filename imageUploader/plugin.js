@@ -7,11 +7,9 @@ CKEDITOR.plugins.add( 'imageUploader', {
     },
     init: function( editor ) {
         // add file type filter
-        var fileDialog = document.createElement("input"),
+        var fileDialog = $('<input type="file" accept="image/*">'),
             allowed = 'img[alt,!src]{border-style,border-width,float,height,margin,margin-bottom,margin-left,margin-right,margin-top,width}',
             required = 'img[alt,src]';
-        fileDialog.type = 'file'
-        fileDialog.accept = 'image/*'
 
         fileDialog.on('change', function (e) {
             var fileTools = CKEDITOR.fileTools,
